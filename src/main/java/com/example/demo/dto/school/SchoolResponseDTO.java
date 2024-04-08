@@ -1,7 +1,11 @@
 package com.example.demo.dto.school;
 
 import com.example.demo.domain.school.School;
+import lombok.Getter;
 
+import java.io.Serializable;
+
+@Getter
 public class SchoolResponseDTO {
     SchoolDetailDTO schoolDetailDTO;
 

@@ -29,7 +29,7 @@ SET FILES NIO TRUE
 SET FILES NIO SIZE 256
 SET FILES LOG TRUE
 SET FILES LOG SIZE 50
-SET FILES CHECK 1907
+SET FILES CHECK 2385
 SET DATABASE COLLATION "SQL_TEXT" PAD SPACE
 CREATE USER SA PASSWORD DIGEST 'd41d8cd98f00b204e9800998ecf8427e'
 ALTER USER SA SET LOCAL TRUE
@@ -58,3 +58,4 @@ INSERT INTO "flyway_schema_history" VALUES(1,'1','create-table-schools','SQL','V
 INSERT INTO "flyway_schema_history" VALUES(2,'2','create-table-peoples','SQL','V2__create-table-peoples.sql',-1902857775,'SA','2024-04-03 20:14:40.893901',62,'1')
 INSERT INTO "flyway_schema_history" VALUES(3,'3','create-table-checkins','SQL','V3__create-table-checkins.sql',-2066004113,'SA','2024-04-03 20:14:40.915915',1,'1')
 INSERT INTO "flyway_schema_history" VALUES(4,'4','create-indexes','SQL','V4__create-indexes.sql',-1360596043,'SA','2024-04-03 20:14:40.928914',1,'1')
+INSERT INTO SCHOOLS VALUES('4364be00-7861-4120-92e7-0a9ebe1d4e89','multivix','faculdade','multivix',1000)
