@@ -2,10 +2,10 @@ package com.example.demo.services;
 
 import com.example.demo.domain.people.People;
 import com.example.demo.domain.school.School;
+import com.example.demo.domain.school.exceptions.SchoolNotFoundException;
 import com.example.demo.dto.school.SchoolIdDTO;
 import com.example.demo.dto.school.SchoolRequestDTO;
 import com.example.demo.dto.school.SchoolResponseDTO;
-import com.example.demo.repos.PeopleRepository;
 import com.example.demo.repos.SchoolRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,11 +17,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SchoolService {
     private final SchoolRepository schoolRepository;
-    private final PeopleRepository peopleRepository;
+    private final PeopleService peopleService;
 
     public SchoolResponseDTO getSchoolDetail(String schoolId){
-        School school = this.schoolRepository.findById(schoolId).orElseThrow(() -> new RuntimeException("Escola nao encontrada com id: " + schoolId));
-        List<People> peopleList = this.peopleRepository.findBySchoolId(schoolId);
+        School school = this.schoolRepository.findById(schoolId).orElseThrow(() -> new SchoolNotFoundException(schoolId));
+        List<People> peopleList = this.peopleService.getAllPeople(schoolId);
         return new SchoolResponseDTO(school, peopleList.size());
     }
 
@@ -36,7 +36,7 @@ public class SchoolService {
     }
 
     private String createSlug(String txt){
-        //normalizacao para separa acentos de letras
+        //normalizacao para separar acentos de letras
         String normalized = Normalizer.normalize(txt, Normalizer.Form.NFD);
         return normalized.replaceAll("[\\p{InCOMBINING_DIACRITICAL_MARKS}]", "")
                 .replaceAll("[^\\w\\s]", "")
