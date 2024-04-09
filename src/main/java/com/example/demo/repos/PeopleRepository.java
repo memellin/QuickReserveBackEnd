@@ -5,7 +5,9 @@ import com.example.demo.domain.school.School;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface PeopleRepository extends JpaRepository<People, String> {
     List<People> findBySchoolId(String schoolId);
+    Optional<People> findBySchoolIdAndEmail(String schoolId, String email);
 }

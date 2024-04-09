@@ -2,6 +2,7 @@ package com.example.demo.services;
 
 import com.example.demo.domain.people.People;
 import com.example.demo.domain.school.School;
+import com.example.demo.domain.school.exceptions.SchoolFullException;
 import com.example.demo.domain.school.exceptions.SchoolNotFoundException;
 import com.example.demo.dto.school.SchoolIdDTO;
 import com.example.demo.dto.school.SchoolRequestDTO;
@@ -34,6 +35,18 @@ public class SchoolService {
         this.schoolRepository.save(school);
         return  new SchoolIdDTO(school.getId());
     }
+
+    public void registerPeopleOnSchool(String schoolId){
+        this.peopleService.verifyPeopleSubscription("", schoolId);
+
+        School school = this.schoolRepository.findById(schoolId).orElseThrow(() -> new SchoolNotFoundException(schoolId));
+        List<People> peopleList = this.peopleService.getAllPeople(schoolId);
+
+        if(school.getMaximumAttendees() < peopleList.size()){
+            throw new SchoolFullException("Maximum people reached");
+        }
+    }
+
 
     private String createSlug(String txt){
         //normalizacao para separar acentos de letras
