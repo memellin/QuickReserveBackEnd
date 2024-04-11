@@ -1,6 +1,8 @@
 package com.example.demo.controllers;
 
+import com.example.demo.dto.people.PeopleIdDTO;
 import com.example.demo.dto.people.PeopleListResponseDTO;
+import com.example.demo.dto.people.PeopleRequestDTO;
 import com.example.demo.dto.school.SchoolIdDTO;
 import com.example.demo.dto.school.SchoolRequestDTO;
 import com.example.demo.dto.school.SchoolResponseDTO;
@@ -35,6 +37,15 @@ public class SchoolController {
         var uri = uriComponentsBuilder.path("/schools/{schoolId}").buildAndExpand(schoolIdDTO.schoolId()).toUri();
 
         return ResponseEntity.created(uri).body(schoolIdDTO);
+    }
+
+    @PostMapping("/{schoolId}/peoples")
+    public ResponseEntity<PeopleIdDTO> registerPeople(@PathVariable String schoolId, @RequestBody PeopleRequestDTO body, UriComponentsBuilder uriComponentsBuilder){
+        PeopleIdDTO peopleIdDTO =  this.schoolService.registerPeopleOnSchool(schoolId, body);
+
+        var uri = uriComponentsBuilder.path("/peoples/{peopleId}/badge").buildAndExpand(peopleIdDTO.peopleId()).toUri();
+
+        return ResponseEntity.created(uri).body(peopleIdDTO);
     }
 
     @GetMapping("/peoples/{id}")

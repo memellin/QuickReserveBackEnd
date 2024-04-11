@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class People {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;

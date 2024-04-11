@@ -54,6 +54,8 @@ public class SchoolService {
         newPeople.setEmail(peopleRequestDTO.email());
         newPeople.setSchool(school);
         newPeople.setCreatedAt(LocalDateTime.now());
+
+        this.peopleService.registerNewPeople(newPeople);
         return new PeopleIdDTO(newPeople.getId());
     }
 
